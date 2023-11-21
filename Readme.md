@@ -20,16 +20,16 @@ The dataset directory structure of the whole project is as follows:
 │   └──...
 └── data
     └──WIPI
-        	└──image
-                │   ├── 0.tiff
-                │   ├── 1.tiff
-                │   ├── ...
-                │   └── *.tiff
-            └──masks
-                │   ├── 0.tiff
-                │   ├── 1.tiff
-                │   ├── ...
-                │   └── *.tiff
+        └──image
+            │   ├── 0.tiff
+            │   ├── 1.tiff
+            │   ├── ...
+            │   └── *.tiff
+        └──masks
+            │   ├── 0.tiff
+            │   ├── 1.tiff
+            │   ├── ...
+            │   └── *.tiff
 2. Environment
 Please prepare an environment with python=3.7, and then use the command "pip install -r requirements.txt" for the dependencies.
 
