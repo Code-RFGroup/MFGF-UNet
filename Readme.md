@@ -7,7 +7,7 @@ lf you think this work is helpful, please cite：
 
 xxx
 
-1. Prepare data
+## 1. Prepare data
 Synapse dataset can be found at here.
 
 ACDC dataset can be found at here.
@@ -32,10 +32,10 @@ The dataset directory structure of the whole project is as follows:
             │   ├── ...
             │   └── *.tiff
 ```
-2. Environment
+## 2. Environment
 Please prepare an environment with python=3.7, and then use the command "pip install -r requirements.txt" for the dependencies.
 
-3.Train/Test
+## 3.Train/Test
 Train
 xxx
 Test
