@@ -2,7 +2,7 @@ import os
 from torch import nn
 import torch
 from torch.utils.data import DataLoader
-from utils.data_utils import SentinelDataSet,DataProcess
+from utils.data_utils import WIPIDataSet
 from tqdm import tqdm
 from utils.utils_metrics import f_score
 from model.MFGF_UNet import MFGF_UNet
@@ -75,11 +75,9 @@ if __name__=="__main__":
     # DataLoader
     # -------------------------------#
     best_loss,best_f1 = 5.0,0.0
-    dp = DataProcess(args.data_path, args.patch_size, args.image_size, args.overlap)
-    train_imgs, train_labels, val_imgs, val_labels = dp.next_data()
-    train_data = SentinelDataSet(train_imgs,train_labels)
+    train_data = WIPIDataSet(args.data_path, args.patch_size, args.image_size, args.overlap,istrain=True)
     train_loader = DataLoader(train_data, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers, drop_last=True)
-    test_data = SentinelDataSet(val_imgs, val_labels)
+    test_data = WIPIDataSet(args.data_path, args.patch_size, args.image_size, args.overlap,istrain=False)
     test_loader = DataLoader(test_data, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers, drop_last=True)
     for i in range(args.epochs):
         log=""
