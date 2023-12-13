@@ -2,11 +2,16 @@ import os
 from torch import nn
 import torch
 from torch.utils.data import DataLoader
-from utils.data_utils import WIPIDataSet
+from utils.data_utils_wipi import WIPIDataSet
 from tqdm import tqdm
 from utils.utils_metrics import f_score
 from model.MFGF_UNet import MFGF_UNet
 import argparse
+
+def readImgName(path):
+    with open(path, 'r', encoding='utf8') as f:
+        names = f.read().strip().split('\n')
+    return names
 
 def write_log(path,context):
     with open(path,'a',encoding='utf8') as f:
@@ -65,7 +70,7 @@ if __name__=="__main__":
     # -------------------------------#
     # create model
     # -------------------------------#
-    net=MFGF_UNet(in_chs=[15]).to(device)
+    net=MFGF_UNet(in_chs=[9]).to(device)
     # -------------------------------#
     # Set loss function and optimizer
     # -------------------------------#
@@ -75,10 +80,12 @@ if __name__=="__main__":
     # DataLoader
     # -------------------------------#
     best_loss,best_f1 = 5.0,0.0
-    train_data = WIPIDataSet(args.data_path, args.patch_size, args.image_size, args.overlap,istrain=True)
+    train_names = readImgName('train_wipi.txt')
+    train_data = WIPIDataSet(args.data_path,train_names,args.patch_size, args.image_size, args.overlap,istrain=True)
     train_loader = DataLoader(train_data, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers, drop_last=True)
-    test_data = WIPIDataSet(args.data_path, args.patch_size, args.image_size, args.overlap,istrain=False)
-    test_loader = DataLoader(test_data, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers, drop_last=True)
+    val_names = readImgName('val_wipi.txt')
+    val_data = WIPIDataSet(args.data_path,val_names,args.patch_size, args.image_size, args.overlap,istrain=False)
+    val_loader = DataLoader(val_data, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers, drop_last=True)
     for i in range(args.epochs):
         log=""
         train_f_score = 0
@@ -105,10 +112,10 @@ if __name__=="__main__":
         log+="Epoch-"+str(i)+"-train loss:"+format(all_train_loss/for_num,'.6')+"train_f1:"+format(train_f_score / for_num,'.5%')
         # val
         all_val_loss=0
-        test_iter=iter(test_loader)
+        val_iter=iter(val_loader)
         for_num=0
         net.eval()
-        for (imgs, targets) in tqdm(test_iter):
+        for (imgs, targets) in tqdm(val_iter):
             with torch.no_grad():
                 output = net(imgs.to(device)).to(device)
                 result_loss = criterion(output, targets.to(device))
