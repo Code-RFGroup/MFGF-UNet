@@ -21,12 +21,17 @@ The dataset directory structure of the whole project is as follows:
 │   └──...
 └── data
     └──WIPI
-        └──image
+        └──SAR
             │   ├── 0.tiff
             │   ├── 1.tiff
             │   ├── ...
             │   └── *.tiff
-        └──masks
+        └──WI
+            │   ├── 0.tiff
+            │   ├── 1.tiff
+            │   ├── ...
+            │   └── *.tiff
+        └──Labels
             │   ├── 0.tiff
             │   ├── 1.tiff
             │   ├── ...
@@ -37,6 +42,6 @@ Please prepare an environment with python=3.7, and then use the command "pip ins
 
 ## 3.Train/Test
 Train
-xxx
+python train.py --data_path 'your data path' --root_path 'your workspace' --epochs train epochs -b batch_size 
 Test
-xxx
+python CESHI.py
