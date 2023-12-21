@@ -4,9 +4,6 @@ The code of MFGF-UNet is from [A Multi-modality Fusion and Gated Multi-filter U-
 The code of MFGF-UNet can be used for academic research only, please do not use them for commercial purposes. If you have any problem with the code, please contact: rfwang@xidian.edu.cn or zhg_chenchen@163.com.
 
 ## 1. Prepare data
-Synapse dataset can be found at here.
-
-ACDC dataset can be found at here.
 
 Data Preparing
 
